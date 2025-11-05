@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sararussellcreations",
+  "compatibility_date": "2025-08-03",
+  "main": "./worker/index.tsx",
+  "vars": {
+    "SR2LC_JWT_SECRET": "a-secure-secret-key"
+  },
+  "d1_databases": [
+    {
+      "binding": "SR2LC_DB",
+      "database_name": "sr2lc-db",
+      "database_id": ""
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "SR2LC_R2",
+      "bucket_name": "sr2lc-assets"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SR2LC_KV",
+      "id": "",
+      "preview_id": ""
+    }
+  ]
+}
