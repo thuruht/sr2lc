@@ -10,7 +10,7 @@
     {
       "binding": "SR2LC_DB",
       "database_name": "sr2lc-db",
-      "database_id": ""
+      "database_id": "YOUR_DATABASE_ID"
     }
   ],
   "r2_buckets": [
@@ -22,8 +22,8 @@
   "kv_namespaces": [
     {
       "binding": "SR2LC_KV",
-      "id": "",
-      "preview_id": ""
+      "id": "YOUR_KV_NAMESPACE_ID",
+      "preview_id": "YOUR_KV_NAMESPACE_PREVIEW_ID"
     }
   ]
 }
