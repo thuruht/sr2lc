@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Masonry from 'react-masonry-css';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 interface GalleryItem {
   id: number;
@@ -9,6 +12,8 @@ interface GalleryItem {
 
 const Gallery = () => {
   const [items, setItems] = useState<GalleryItem[]>([]);
+  const [open, setOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -19,18 +24,44 @@ const Gallery = () => {
     fetchItems();
   }, []);
 
+  const breakpointColumnsObj = {
+    default: 4,
+    1100: 3,
+    700: 2,
+    500: 1,
+  };
+
+  const slides = items.map((item) => ({
+    src: item.imageUrl,
+    title: item.title,
+    description: item.description,
+  }));
+
+  const openLightbox = (index: number) => {
+    setCurrentIndex(index);
+    setOpen(true);
+  };
+
   return (
     <div>
       <h1>Gallery</h1>
-      <div>
-        {items.map((item) => (
-          <div key={item.id}>
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {items.map((item, index) => (
+          <div key={item.id} onClick={() => openLightbox(index)}>
             <img src={item.imageUrl} alt={item.title} />
-            <h2>{item.title}</h2>
-            <p>{item.description}</p>
           </div>
         ))}
-      </div>
+      </Masonry>
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={slides}
+        index={currentIndex}
+      />
     </div>
   );
 };

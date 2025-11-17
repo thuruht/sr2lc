@@ -1,27 +1,60 @@
-import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+
+interface Order {
+  id: number;
+  total: number;
+  createdAt: string;
+}
+
+interface Inventory {
+  name: string;
+  quantity: number;
+}
 
 const AdminDashboard = () => {
+  const [recentSales, setRecentSales] = useState<Order[]>([]);
+  const [lowStock, setLowStock] = useState<Inventory[]>([]);
+
+  useEffect(() => {
+    fetchRecentSales();
+    fetchLowStock();
+  }, []);
+
+  const fetchRecentSales = async () => {
+    const res = await fetch('/api/orders/recent');
+    const data = await res.json();
+    setRecentSales(data);
+  };
+
+  const fetchLowStock = async () => {
+    const res = await fetch('/api/inventory/low-stock');
+    const data = await res.json();
+    setLowStock(data);
+  };
+
   return (
     <div>
-      <h1>Admin Dashboard</h1>
-      <nav>
+      <h2>Dashboard</h2>
+      <div>
+        <h3>Recent Sales</h3>
         <ul>
-          <li>
-            <Link to="/admin/gallery">Manage Gallery</Link>
-          </li>
-          <li>
-            <Link to="/admin/products">Manage Products</Link>
-          </li>
-          <li>
-            <Link to="/admin/posts">Manage Posts</Link>
-          </li>
-          <li>
-            <Link to="/admin/bio">Manage Bio</Link>
-          </li>
+          {recentSales.map((order) => (
+            <li key={order.id}>
+              ${order.total} - {new Date(order.createdAt).toLocaleDateString()}
+            </li>
+          ))}
         </ul>
-      </nav>
-      <Outlet />
+      </div>
+      <div>
+        <h3>Low Stock</h3>
+        <ul>
+          {lowStock.map((item) => (
+            <li key={item.name}>
+              {item.name} - {item.quantity} remaining
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

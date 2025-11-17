@@ -6,6 +6,10 @@ import products from './products';
 import posts from './posts';
 import auth from './auth';
 import bio from './bio';
+import orders from './orders';
+import inventory from './inventory';
+import comments from './comments';
+import reviews from './reviews';
 
 type Bindings = {
   DB: D1Database;
@@ -34,6 +38,10 @@ app.route('/api/products', products);
 app.route('/api/posts', posts);
 app.route('/api/auth', auth);
 app.route('/api/bio', bio);
+app.route('/api/orders', orders);
+app.route('/api/inventory', inventory);
+app.route('/api/comments', comments);
+app.route('/api/reviews', reviews);
 
 app.get('/api/admin/test', (c) => {
     const user = c.get('user');
