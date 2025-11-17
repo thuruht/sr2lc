@@ -1,0 +1,42 @@
+@media (max-width: 768px) {
+  .shop-container {
+    flex-direction: column;
+  }
+
+  .product-item {
+    width: 100%;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-links a {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+  }
+
+  .my-masonry-grid {
+    margin-left: -15px;
+  }
+
+  .my-masonry-grid_column {
+    padding-left: 15px;
+  }
+}

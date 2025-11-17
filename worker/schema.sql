@@ -59,3 +59,27 @@ CREATE TABLE bio (
 
 -- Seed data
 INSERT INTO bio (content) VALUES ('This is a sample bio.');
+INSERT INTO posts (title, content) VALUES ('Sample Post', 'This is a sample post.');
+
+DROP TABLE IF EXISTS comments;
+
+CREATE TABLE comments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  postId INTEGER NOT NULL,
+  author TEXT NOT NULL,
+  content TEXT NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (postId) REFERENCES posts(id)
+);
+
+DROP TABLE IF EXISTS reviews;
+
+CREATE TABLE reviews (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  productId INTEGER NOT NULL,
+  author TEXT NOT NULL,
+  rating INTEGER NOT NULL,
+  content TEXT NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (productId) REFERENCES products(id)
+);

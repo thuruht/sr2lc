@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import Reviews from '../components/Reviews';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 interface Product {
   id: number;
@@ -24,12 +27,14 @@ const Shop = () => {
   return (
     <div>
       <h1>Shop</h1>
-      <div>
+      <div className="shop-container">
         {products.map((product) => (
-          <div key={product.id}>
-            <img src={product.imageUrl} alt={product.name} />
+          <div key={product.id} className="product-item">
+            <Zoom>
+              <img src={product.imageUrl} alt={product.name} width="500" />
+            </Zoom>
             <h2>{product.name}</h2>
-            <p>{product.description}</p>
+            <div dangerouslySetInnerHTML={{ __html: product.description }} />
             <p>${product.price}</p>
             <PayPalScriptProvider options={{ 'client-id': 'test' }}>
               <PayPalButtons
@@ -51,6 +56,7 @@ const Shop = () => {
                 }}
               />
             </PayPalScriptProvider>
+            <Reviews productId={product.id} />
           </div>
         ))}
       </div>
